@@ -80,7 +80,7 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        meta: { title: '主页', icon: 'dashboard', affix: true }
       }
     ]
   },
@@ -107,15 +107,139 @@ export const constantRoutes = [
  */
 export const asyncRoutes = [
   {
-    path: '/customer',
+    path: '/basic',
     component: Layout,
-    redirect: '/customer/list',
+    meta: { title: '基础配置', icon: 'basic', noCache: true },
     children: [
       {
-        path: 'list',
-        component: () => import('@/pages/customer/List'),
+        path: '/pages/basic/product',
+        redirect: '/product/Product',
+        children: [
+          {
+            path: 'Product',
+            component: () => import('@/pages/basic/product/Product'),
+            name: 'product',
+            meta: { title: '产品管理', icon: 'product', noCache: true }
+          },
+          {
+            path: 'Details',
+            hidden:true,
+            component: () => import('@/pages/basic/product/Details'),
+            name: 'details',
+            meta: { title: '产品详情', icon: 'product', noCache: true }
+          },
+          
+        ]
+      },
+      {
+        path: 'category',
+        redirect: '/product/Category',
+        children: [
+          {
+            path: 'Category',
+            component: () => import('@/pages/basic/category/Category'),
+            name: 'category',
+            meta: { title: '栏目管理', icon: 'category', noCache: true }    
+          },
+          {
+            path: 'Details',
+            hidden:true,
+            component: () => import('@/pages/basic/category/Details'),
+            name: 'details',
+            meta: { title: '栏目详情', icon: 'category', noCache: true }
+          },
+        ]
+      },
+      // {
+      //   path: 'Category',
+      //   component: () => import('@/pages/basic/Category'),
+      //   name: 'Category',
+      //   meta: { title: '栏目管理', icon: 'category', noCache: true }
+      // },
+      // {
+      //   path: 'product',
+      //   component: () => import('@/pages/basic/Product'),
+      //   name: 'product',
+      //   meta: { title: '产品管理', icon: 'product', noCache: true }
+      // }
+    ]
+  },
+  {
+    path: '/customer',
+    component: Layout,
+    redirect: '/customer/Customer',
+    children: [
+      {
+        path: 'Customer',
+        component: () => import('@/pages/customer/Customer'),
         name: 'customer',
-        meta: { title: '顾客管理', icon: 'edit', noCache: true }
+        meta: { title: '顾客管理', icon: 'peoples', noCache: true }
+      },
+      {
+        path: 'Details',
+        hidden:true,
+        component: () => import('@/pages/customer/Details'),
+        name: 'details',
+        meta: { title: '顾客详情', icon: 'peoples', noCache: true }
+      },
+      
+    ]
+  },
+  {
+    path: '/waiter',
+    component: Layout,
+    redirect: '/waiter/Waiter',
+    children: [
+      {
+        path: 'waiter',
+        component: () => import('@/pages/waiter/Waiter'),
+        name: 'waiter',
+        meta: { title: '员工管理', icon: 'waiter', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/comment',
+    component: Layout,
+    redirect: '/comment/Comment',
+    children: [
+      {
+        path: 'comment',
+        component: () => import('@/pages/comment/Comment'),
+        name: 'comment',
+        meta: { title: '评论管理', icon: 'comment', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order/Order',
+    children: [
+      {
+        path: 'order',
+        component: () => import('@/pages/order/Order'),
+        name: 'order',
+        meta: { title: '订单管理', icon: 'order', noCache: true }
+      }
+    ]
+  },
+  {
+    path: '/check',
+    component: Layout,
+    meta: { title: '审核管理', icon: 'check', noCache: true },
+    children: [
+      {
+        path: 'WaiterCheck',
+        component: () => import('@/pages/check/WaiterCheck'),
+        name: 'WaiterCheck',
+        meta: { title: '员工审核', icon: 'waiter', noCache: true }
+      },
+      {
+        path: 'WithdrawCheck',
+        component: () => import('@/pages/check/WithdrawCheck'),
+        name: 'WithdrawCheck',
+        meta: { title: '提现审核', icon: '提现', noCache: true }
       }
     ]
   },
