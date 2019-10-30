@@ -112,56 +112,17 @@ export const asyncRoutes = [
     meta: { title: '基础配置', icon: 'basic', noCache: true },
     children: [
       {
-        path: '/pages/basic/product',
-        redirect: '/product/Product',
-        children: [
-          {
-            path: 'Product',
-            component: () => import('@/pages/basic/product/Product'),
-            name: 'product',
-            meta: { title: '产品管理', icon: 'product', noCache: true }
-          },
-          {
-            path: 'Details',
-            hidden:true,
-            component: () => import('@/pages/basic/product/Details'),
-            name: 'details',
-            meta: { title: '产品详情', icon: 'product', noCache: true }
-          },
-          
-        ]
+        path: 'Category',
+        component: () => import('@/pages/basic/Category'),
+        name: 'Category',
+        meta: { title: '栏目管理', icon: 'category', noCache: true }
       },
       {
-        path: 'category',
-        redirect: '/product/Category',
-        children: [
-          {
-            path: 'Category',
-            component: () => import('@/pages/basic/category/Category'),
-            name: 'category',
-            meta: { title: '栏目管理', icon: 'category', noCache: true }    
-          },
-          {
-            path: 'Details',
-            hidden:true,
-            component: () => import('@/pages/basic/category/Details'),
-            name: 'details',
-            meta: { title: '栏目详情', icon: 'category', noCache: true }
-          },
-        ]
-      },
-      // {
-      //   path: 'Category',
-      //   component: () => import('@/pages/basic/Category'),
-      //   name: 'Category',
-      //   meta: { title: '栏目管理', icon: 'category', noCache: true }
-      // },
-      // {
-      //   path: 'product',
-      //   component: () => import('@/pages/basic/Product'),
-      //   name: 'product',
-      //   meta: { title: '产品管理', icon: 'product', noCache: true }
-      // }
+        path: 'product',
+        component: () => import('@/pages/basic/Product'),
+        name: 'product',
+        meta: { title: '产品管理', icon: 'product', noCache: true }
+      }
     ]
   },
   {
@@ -195,7 +156,14 @@ export const asyncRoutes = [
         component: () => import('@/pages/waiter/Waiter'),
         name: 'waiter',
         meta: { title: '员工管理', icon: 'waiter', noCache: true }
-      }
+      },
+      {
+        path: 'Details',
+        hidden:true,
+        component: () => import('@/pages/waiter/Details'),
+        name: 'details',
+        meta: { title: '员工详情', icon: 'waiter', noCache: true }
+      },
     ]
   },
   {

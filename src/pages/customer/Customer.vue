@@ -7,7 +7,7 @@
         <el-table-column prop="realname" label="姓名"></el-table-column>
         <el-table-column prop="password" label="密码"></el-table-column>
         <el-table-column prop="telephone" label="电话号码"></el-table-column>
-        <el-table-column label="操作" width="100px" align="center">
+        <el-table-column label="详情" width="100px" align="center">
             <template #default="record">
                 <a href="" class="el-icon-tickets" @click.prevent = "toDetails(record.row)"></a>
             </template>
