@@ -7,6 +7,7 @@
         <el-button @click="batchDeleteHandler" type="danger" size="small">批量删除</el-button>
       </div>
       <!-- /按钮 -->
+      <!-- {{categories}} -->
     <!-- 表格 -->
     <el-table  size="small" :data="categories.list" @selection-change="idsChangeHandler" style="text-align:center">
       <el-table-column type="selection" width="55"></el-table-column>
@@ -21,7 +22,7 @@
         <template #default="record">
           <a href="" class="el-icon-delete"  @click.prevent = "deleteHandler(record.row.id)"></a> &nbsp;
           <a href="" class="el-icon-edit-outline" @click.prevent = "editHandler(record.row)"></a> &nbsp;
-          <a href="" @click.prevent="toDetails(record.row)">详情</a>
+          <!-- <a href="" @click.prevent="toDetails(record.row)">详情</a> -->
         </template>
       </el-table-column>
     </el-table>
@@ -36,18 +37,28 @@
     </el-pagination>
     <!-- /分页 -->
     <!-- 模态框 -->
-    <el-dialog :title="title" :visible.sync="visible" @close="closeModal">
+    <el-dialog :title="title" :visible.sync="visible" @close="dialogCloseHandler">
       <!-- {{form}} -->
-      {{categories}}
+      <!-- {{categories}} -->
       <el-form :model="form" :rules="rules" ref="categoryForm">
         <el-form-item label="分类名称" label-width="100px" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="数量" label-width="100px" prop="price">
+        <el-form-item label="数量" label-width="100px" prop="num">
           <el-input v-model="form.num" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="图片" label-width="100px" prop="status">
-          <el-input v-model="form.icon" autocomplete="off"></el-input>
+        <el-form-item label="图片" label-width="100px" prop="icon">
+          <el-upload
+            class="upload-demo"
+            action="http://134.175.154.93:6677/file/upload"
+            :file-list="fileList"
+            :on-success="uploadSuccessHandler"
+            :on-remove="removeHandler"
+            :limit=1
+            list-type="picture">
+            <el-button size="small" type="primary">点击上传</el-button>
+            <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+          </el-upload>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -64,6 +75,7 @@ export default {
   data() {
     return {
       form:{},
+      fileList:[],
       // 向后台提交的数据
       params:{
         page:0,
@@ -99,13 +111,13 @@ export default {
       this.params.page = currentPage-1;
       this.findAllCategories(this.params);
     },
-    toDetails(category){
-      // 跳转到分类详情页面
-      this.$router.push({
-        path:'/basic/DetailsCategory',
-        query:{category}
-      })
-    },
+    // toDetails(category){
+    //   // 跳转到分类详情页面
+    //   this.$router.push({
+    //     path:'/basic/DetailsCategory',
+    //     query:{category}
+    //   })
+    // },
     batchDeleteHandler(){
       this.batchDeleteCategories(this.ids)
       .then((response)=>{
@@ -114,6 +126,28 @@ export default {
     },
     idsChangeHandler(val){
       this.ids = val.map(item => item.id);
+    },
+    dialogCloseHandler(){
+      // this.$refs.categoryForm.clearValidate();
+      this.closeModal();
+      this.fileList=[]
+    },
+    // 将图片地址放到接口中可供查看
+    uploadSuccessHandler(response){
+      // 获取返回值中的id，然后将id设置到表单中product
+      // console.log("===",response);
+      if(response.status === 200){
+        let id = response.data.id;
+        let icon = "http://134.175.154.93:8888/group1/"+id;
+        this.form.icon = icon;
+        // 克隆
+        this.form = Object.assign({},this.form);
+      } else {
+        this.$message.error("上传异常！");
+      }
+    },
+    removeHandler(){
+      this.form.icon="";
     },
     toAddHandler(){
       this.form = {};
@@ -126,7 +160,7 @@ export default {
         if(valid){
           // 2.提交表单
           this.saveOrUpdateCategory(this.form)
-          then((response)=>{
+          .then((response)=>{
             this.$message({type:"success",message:response.statusText});
           })
         } else {
@@ -142,7 +176,8 @@ export default {
     },
     editHandler(row){
       this.form = row;
-      this.setTitle("修改分类信息")
+      this.setTitle("修改分类信息");
+      this.fileList.push({name:"old",url:row.icon});
       this.showModal();
     }
   }

@@ -1,4 +1,5 @@
 import {get} from '@/http/axios'
+import moment from 'moment'
 
 export default {
     namespaced: true,
@@ -39,6 +40,11 @@ export default {
         //1.查询所有订单信息
         async findAllorders(context){
             let response = await get("/order/query");
+            // 将时间戳转化为时间
+            response.data.forEach((item,index)=>{
+                // console.log("====",item,index)
+                response.data[index].orderTime=moment(item.orderTime).format('YYYY-MM-DD HH:mm:ss')
+            });
             context.commit("refreshorders",response.data);
             // console.log(response);
         },

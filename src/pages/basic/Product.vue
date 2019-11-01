@@ -23,7 +23,7 @@
       <!-- /右侧按钮 -->
     </el-row>
     
-    <!-- {{products.list}} -->
+    <!-- {{products}} -->
    
     <!-- 表格 -->
     <el-table  size="small" :data="products.list" @selection-change="idsChangeHandler" style="text-align:center">
@@ -55,6 +55,7 @@
     <el-dialog :title="title" :visible.sync="visible" @close="dialogCloseHandler">
       <!-- {{form}} -->
       <!-- {{products}} -->
+      <!-- {{categories}} -->
       <el-form :model="form" :rules="rules" ref="productForm">
         <el-form-item label="零食名称" label-width="100px" prop="name">
           <el-input v-model="form.name" autocomplete="off"></el-input>
@@ -67,7 +68,7 @@
         </el-form-item>
         <el-form-item label="分类" label-width="100px" prop="categoryId">
           <el-select v-model="form.categoryId" placeholder="请选择活动区域">
-            <el-option v-for="item in categories.list" :label="item.name" :value="item.id" :key="item.id"></el-option>
+            <el-option v-for="item in categories" :label="item.name" :value="item.id" :key="item.id"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="介绍" label-width="100px" prop="description">
@@ -120,16 +121,16 @@ export default {
   },
   created() {
     this.loadData();
+    this.findAllCategories();
   },
   computed:{
-    ...mapState("product",["products","visible","title"]),
-    ...mapState("category",["categories"]),
+    ...mapState("product",["products","categories","visible","title"]),
     ...mapGetters("product",["countProducts","ProductStatusFilter"])
     // 普通属性
 
   },
   methods: {
-    ...mapActions("product",["findAllProducts","deleteProductById","saveOrUpdateProduct","batchDeleteProducts"]),
+    ...mapActions("product",["findAllProducts","findAllCategories","deleteProductById","saveOrUpdateProduct","batchDeleteProducts"]),
     ...mapMutations("product",["showModal","closeModal","setTitle"]),
     // 普通方法
     loadData(){
@@ -168,6 +169,7 @@ export default {
     // 将图片地址放到接口中可供查看
     uploadSuccessHandler(response){
       // 获取返回值中的id，然后将id设置到表单中product
+      // console.log("===",response);
       if(response.status === 200){
         let id = response.data.id;
         let photo = "http://134.175.154.93:8888/group1/"+id;
@@ -187,7 +189,7 @@ export default {
         if(valid){
           // 2.提交表单
           this.saveOrUpdateProduct(this.form)
-          then((response)=>{
+          .then((response)=>{
             this.$message({type:"success",message:response.statusText});
           })
         } else {
@@ -196,8 +198,8 @@ export default {
       });
     },
     deleteHandler(id){
-      let promise = this.deleteProductById(id)
-      promise.then((response)=>{
+      this.deleteProductById(id)
+      .then((response)=>{
         this.$message({type:"success",message:response.statusText});
       })
     },

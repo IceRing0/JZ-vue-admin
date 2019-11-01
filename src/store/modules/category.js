@@ -32,6 +32,10 @@ export default {
     closeModal(state){
       state.visible = false;
     },
+    // 模态框名称
+    setTitle(state,title){
+      state.title = title;
+    },
     // 需要接受一个参数，这个参数就是categories
     refreshCategories(state,categories){
       state.categories = categories;

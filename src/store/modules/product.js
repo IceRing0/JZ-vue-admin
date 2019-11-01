@@ -4,6 +4,7 @@ export default {
   state:{
     // 向后台提交的数据
     products:[],
+    categories:[],
     visible:false,
     title:"添加产品信息"
   },
@@ -32,9 +33,17 @@ export default {
     closeModal(state){
       state.visible = false;
     },
+    // 模态框名称
+    setTitle(state,title){
+      state.title = title;
+    },
     // 需要接受一个参数，这个参数就是products
     refreshProducts(state,products){
       state.products = products;
+    },
+    // 需要接受一个参数，这个参数就是categories
+    refreshCategories(state,categories){
+      state.categories = categories;
     }
   },
   actions:{
@@ -44,6 +53,13 @@ export default {
       let response = await post("/product/queryProductCascadeCategory",params)
       // 将产品信息设置到state.products中
       context.commit("refreshProducts",response.data)
+    },
+    async findAllCategories(context){
+      // 查询所有栏目信息
+      let response = await get("/category/findAll");
+      // console.log(response);
+      // 将栏目信息设置到state.categories中
+      context.commit("refreshCategories",response.data)
     },
     async deleteProductById({dispatch},id){
       // 1. 删除顾客信息

@@ -203,7 +203,14 @@ export const asyncRoutes = [
         component: () => import('@/pages/order/Order'),
         name: 'order',
         meta: { title: '订单管理', icon: 'order', noCache: true }
-      }
+      },
+      {
+        path: 'Details',
+        hidden:true,
+        component: () => import('@/pages/order/Details'),
+        name: 'details',
+        meta: { title: '订单详情', icon: 'order', noCache: true }
+      },
     ]
   },
   {

@@ -13,7 +13,7 @@
             <el-table-column prop="addressId" label="地址ID"> </el-table-column>
             <el-table-column label="操作" width="100px" align="center">
                 <template #default="record">
-                  <a href=""  @click.prevent = "">详情</a>
+                  <a href=""  @click.prevent = "toDetails(record.row)">详情</a>
                 </template>
             </el-table-column>
           </el-table>
@@ -190,7 +190,14 @@ export default {
       },
       closeHandler(){
         this.findAllWaiters()
-      }
+      },
+      toDetails(order){
+        // 跳转到订单详情页面
+        this.$router.push({
+          path:'/order/Details',
+          query:{order}
+        })
+      },
     }
 }
     
