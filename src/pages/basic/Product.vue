@@ -79,6 +79,7 @@
             action="http://134.175.154.93:6677/file/upload"
             :file-list="fileList"
             :on-success="uploadSuccessHandler"
+            :on-remove="removeHandler"
             :limit=1
             list-type="picture">
             <el-button size="small" type="primary">点击上传</el-button>
@@ -176,6 +177,9 @@ export default {
       } else {
         this.$message.error("上传异常！");
       }
+    },
+    removeHandler(){
+      this.form.photo="";
     },
     submitHandler(){
       // 1.表单验证
