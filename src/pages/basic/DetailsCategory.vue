@@ -1,6 +1,6 @@
 <template>
     <div>
-        栏目管理
+        栏目细节
     </div>
 </template>
 <script>

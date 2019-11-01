@@ -16,7 +16,7 @@
     </div>
 </template>
 <script>
-import {mapState,mapGetters,mapMutations,mapActions} from 'vuex'
+import {mapState,mapMutations,mapActions} from 'vuex'
 export default {
     created(){
         this.findAllCustomers();

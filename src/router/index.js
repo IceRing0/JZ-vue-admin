@@ -109,19 +109,33 @@ export const asyncRoutes = [
   {
     path: '/basic',
     component: Layout,
-    meta: { title: '基础配置', icon: 'basic', noCache: true },
+    meta: { title: '系统配置', icon: 'user', noCache: true },
     children: [
       {
         path: 'Category',
         component: () => import('@/pages/basic/Category'),
         name: 'Category',
-        meta: { title: '栏目管理', icon: 'category', noCache: true }
+        meta: { title: '分类管理', icon: 'list', noCache: true }
+      },
+      {
+        path: 'DetailsCategory',
+        component: () => import('@/pages/basic/DetailsCategory'),
+        name: 'DetailsCategory',
+        hidden:true,
+        meta: { title: '分类详情', icon: 'list', noCache: true }
       },
       {
         path: 'product',
         component: () => import('@/pages/basic/Product'),
         name: 'product',
         meta: { title: '产品管理', icon: 'product', noCache: true }
+      },
+      {
+        path: 'DetailsProduct',
+        component: () => import('@/pages/basic/DetailsProduct'),
+        name: 'DetailsProduct',
+        hidden:true,
+        meta: { title: '产品详情', icon: 'product', noCache: true }
       }
     ]
   },

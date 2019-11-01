@@ -54,6 +54,7 @@ export default {
       return response;
     },
     async batchDeleteProducts(context,ids){
+      // console.log(context);
       // 1. 批量删除
       let response = await post_array("/product/batchDelete",{ids});
       // 2. 分发
@@ -64,7 +65,7 @@ export default {
     async saveOrUpdateProduct({dispatch,commit},payload){
       // 1. 提交请求
       let response = await post("/product/saveOrUpdate",payload)
-      console.log(response);
+      // console.log(response);
       // 2. 关闭模态
       commit("closeModal");
       // 3. 刷新页面
