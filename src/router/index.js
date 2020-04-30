@@ -180,19 +180,19 @@ export const asyncRoutes = [
       },
     ]
   },
-  {
-    path: '/comment',
-    component: Layout,
-    redirect: '/comment/Comment',
-    children: [
-      {
-        path: 'comment',
-        component: () => import('@/pages/comment/Comment'),
-        name: 'comment',
-        meta: { title: '评论管理', icon: 'comment', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/comment',
+  //   component: Layout,
+  //   redirect: '/comment/Comment',
+  //   children: [
+  //     {
+  //       path: 'comment',
+  //       component: () => import('@/pages/comment/Comment'),
+  //       name: 'comment',
+  //       meta: { title: '评论管理', icon: 'comment', noCache: true }
+  //     }
+  //   ]
+  // },
   {
     path: '/order',
     component: Layout,
@@ -213,25 +213,25 @@ export const asyncRoutes = [
       },
     ]
   },
-  {
-    path: '/check',
-    component: Layout,
-    meta: { title: '审核管理', icon: 'check', noCache: true },
-    children: [
-      {
-        path: 'WaiterCheck',
-        component: () => import('@/pages/check/WaiterCheck'),
-        name: 'WaiterCheck',
-        meta: { title: '员工审核', icon: 'waiter', noCache: true }
-      },
-      {
-        path: 'WithdrawCheck',
-        component: () => import('@/pages/check/WithdrawCheck'),
-        name: 'WithdrawCheck',
-        meta: { title: '提现审核', icon: '提现', noCache: true }
-      }
-    ]
-  },
+  // {
+  //   path: '/check',
+  //   component: Layout,
+  //   meta: { title: '审核管理', icon: 'check', noCache: true },
+  //   children: [
+  //     {
+  //       path: 'WaiterCheck',
+  //       component: () => import('@/pages/check/WaiterCheck'),
+  //       name: 'WaiterCheck',
+  //       meta: { title: '员工审核', icon: 'waiter', noCache: true }
+  //     },
+  //     {
+  //       path: 'WithdrawCheck',
+  //       component: () => import('@/pages/check/WithdrawCheck'),
+  //       name: 'WithdrawCheck',
+  //       meta: { title: '提现审核', icon: '提现', noCache: true }
+  //     }
+  //   ]
+  // },
  
   /*
   {
@@ -282,7 +282,7 @@ export const asyncRoutes = [
 ]
 
 const createRouter = () => new Router({
-  mode: 'history', // require service support
+  // mode: 'history', // require service support
   scrollBehavior: () => ({ y: 0 }),
   routes: constantRoutes
 })

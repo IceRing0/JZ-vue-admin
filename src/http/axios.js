@@ -4,7 +4,10 @@ import qs from 'qs'
 // 全局配置
 // axios.defaults.headers.common["token"] = ""
 // axios.defaults.headers.post["Content-Type"] = 'application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.baseURL = 'http://47.95.115.185:6677';
+// axios.defaults.baseURL = 'http://47.95.115.185:6677';
+axios.defaults.baseURL = 'http://182.92.117.85:6677';
+// VUE_APP_BASE_API = 'http://182.92.117.85:6677'
+// VUE_APP_BASE_API = 'http://47.95.115.185:6677'
 
 
 // Add a response interceptor

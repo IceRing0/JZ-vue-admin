@@ -10,10 +10,10 @@
       <!-- {{categories}} -->
     <!-- 表格 -->
     <el-table  size="small" :data="categories.list" @selection-change="idsChangeHandler" style="text-align:center">
-      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column type="selection" width="55px"></el-table-column>
       <el-table-column prop="name" label="分类名称"></el-table-column>
       <el-table-column prop="num" label="数量"></el-table-column>
-      <el-table-column prop="icon" label="图片">
+      <el-table-column prop="icon" label="图片" height="100px">
         <template #default="record">
             <img :src="record.row.icon" alt="">
         </template>
